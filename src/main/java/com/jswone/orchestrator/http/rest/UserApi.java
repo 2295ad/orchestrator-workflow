@@ -42,6 +42,6 @@ public class UserApi {
   public ApiResponse<Map<String, Object>> fetchDetails(Map<String, Object> data) {
     String url = userBaseUrl.concat(externalApi.getServices().get("crawler").get("fetch-details"));
     log.info("verify user details");
-    return this.httpCall(url, HttpMethod.GET, data, new ParameterizedTypeReference<>() {});
+    return this.httpCall(url, HttpMethod.POST, data, new ParameterizedTypeReference<>() {});
   }
 }
