@@ -23,7 +23,9 @@ public class OrchestrationServiceImpl implements OrchestrationService {
   @Override
   public Boolean invokeWorkflow(Map<String, Object> payload) {
     try {
-      WorkflowOptions options = WorkflowOptions.newBuilder().setTaskQueue(taskQueue).build();
+      String txId = (String) payload.get("transaction");
+      WorkflowOptions options =
+          WorkflowOptions.newBuilder().setTaskQueue(taskQueue).setWorkflowId(txId).build();
       OrchestratorSyncWorkflow syncWorkflow =
           workflowClient.newWorkflowStub(OrchestratorSyncWorkflow.class, options);
       WorkflowClient.start(syncWorkflow::initiateSyncWorkflow, payload);

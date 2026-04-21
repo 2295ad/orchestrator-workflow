@@ -12,19 +12,22 @@ import org.slf4j.Logger;
 public class OrchestratorSyncWorkflowImpl implements OrchestratorSyncWorkflow {
   private static final Logger log = Workflow.getLogger(OrchestratorSyncWorkflowImpl.class);
 
+  private static final int RETRY_INTERVAL = 10;
+  private static final int MAX_ATTEMPTS = 5;
+
   private final ConsumerActivity activity =
       Workflow.newActivityStub(
           ConsumerActivity.class,
           ActivityOptions.newBuilder()
               .setStartToCloseTimeout(Duration.ofSeconds(30))
-              .setScheduleToStartTimeout(Duration.ofMinutes(2))
-              .setScheduleToCloseTimeout(Duration.ofMinutes(3))
+              .setScheduleToStartTimeout(
+                  Duration.ofMinutes(2)) // worker should pickup before 2 mins
+              .setScheduleToCloseTimeout(Duration.ofMinutes(3)) // max life cycle workflow limit
               .setRetryOptions(
                   RetryOptions.newBuilder()
-                      .setInitialInterval(Duration.ofSeconds(5))
-                      .setBackoffCoefficient(5)
-                      .setMaximumAttempts(5)
-                      .setMaximumInterval(Duration.ofSeconds(60))
+                      .setInitialInterval(Duration.ofSeconds(RETRY_INTERVAL)) // retry after 10 sec
+                      .setBackoffCoefficient(1) // backoff coeff
+                      .setMaximumAttempts(MAX_ATTEMPTS) // 5 retries allowed, configurable
                       .build())
               .build());
 

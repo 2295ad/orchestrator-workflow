@@ -32,11 +32,11 @@ public class UserApi {
     return headers;
   }
 
-  private <T, R> R httpCall(
+  private <T, R> ApiResponse<R> httpCall(
       String url, HttpMethod method, T requestBody, ParameterizedTypeReference<R> responseType) {
     HttpEntity<T> httpEntity = new HttpEntity<>(requestBody, this.getHeaders());
-    ResponseEntity<R> response = restTemplate.exchange(url, method, httpEntity, responseType);
-    return response.getBody();
+    ResponseEntity<R> resp = restTemplate.exchange(url, method, httpEntity, responseType);
+    return new ApiResponse<>((HttpStatus) resp.getStatusCode(), resp.getBody());
   }
 
   public ApiResponse<Map<String, Object>> fetchDetails(Map<String, Object> data) {
