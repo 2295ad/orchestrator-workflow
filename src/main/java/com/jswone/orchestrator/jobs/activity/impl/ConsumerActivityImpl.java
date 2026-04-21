@@ -54,4 +54,22 @@ public class ConsumerActivityImpl implements ConsumerActivity {
     shouldAttemptRetry(apiResponseObj, "TX_STATUS_UPDATE_FAILED");
     return null;
   }
+
+  @Override
+  public Map<String, Object> verifyUser() {
+    Map<String, Object> userReq = new HashMap<>();
+    userReq.put("userId", "123");
+    ApiResponse<Map<String, Object>> apiResponseObj = userApi.fetchDetails(userReq);
+    if (apiResponseObj.getStatus().is2xxSuccessful()
+        && (Boolean) apiResponseObj.getBody().get("success")) {
+      Map<String, Object> apiResponse = apiResponseObj.getBody();
+      return (Map<String, Object>) apiResponse.get("data");
+    }
+    if (apiResponseObj.getStatus().is4xxClientError()) {
+      log.info("invalid user req");
+      return null;
+    }
+    shouldAttemptRetry(apiResponseObj, "USER_API_FAILED");
+    return null;
+  }
 }

@@ -1,4 +1,4 @@
-package com.jswone.orchestrator.service;
+package com.jswone.orchestrator.jobs.service;
 
 import java.util.Map;
 

@@ -1,7 +1,7 @@
-package com.jswone.orchestrator.service.impl;
+package com.jswone.orchestrator.jobs.service.impl;
 
+import com.jswone.orchestrator.jobs.service.OrchestrationService;
 import com.jswone.orchestrator.jobs.workflow.OrchestratorSyncWorkflow;
-import com.jswone.orchestrator.service.OrchestrationService;
 import io.temporal.client.WorkflowClient;
 import io.temporal.client.WorkflowOptions;
 import java.util.Map;
