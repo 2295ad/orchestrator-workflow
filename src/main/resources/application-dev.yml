@@ -1,0 +1,14 @@
+spring:
+temporal:
+  server-base-url: ${TEMPORAL-BASE-URL:localhost:7233}
+  namespace: ${TEMPORAL-NAMESPACE:default}
+  task-queue: task-queue
+
+external-service:
+  consumer:
+    base-url: ${CONSUMER-BASE-URL:http://localhost:8080/transaction-service}
+    api-key:  ${CONSUMER-API-KEY:test}
+  user:
+    base-url: ${USER-BASE-URL:http://localhost:8081/user-service}
+    api-key: ${USER-API-KEY:test}
+

@@ -1,0 +1,5 @@
+services:
+  transaction-consumer:
+    update-tx-status: /consumer/v1
+  crawler:
+    fetch-details: /v1
