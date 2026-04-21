@@ -56,10 +56,8 @@ public class ConsumerActivityImpl implements ConsumerActivity {
   }
 
   @Override
-  public Map<String, Object> verifyUser() {
-    Map<String, Object> userReq = new HashMap<>();
-    userReq.put("userId", "123");
-    ApiResponse<Map<String, Object>> apiResponseObj = userApi.fetchDetails(userReq);
+  public Map<String, Object> verifyUser(Map<String, Object> payload) {
+    ApiResponse<Map<String, Object>> apiResponseObj = userApi.fetchDetails(payload);
     if (apiResponseObj.getStatus().is2xxSuccessful()
         && (Boolean) apiResponseObj.getBody().get("success")) {
       Map<String, Object> apiResponse = apiResponseObj.getBody();

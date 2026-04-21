@@ -11,5 +11,5 @@ public interface ConsumerActivity {
   Map<String, Object> transactionStatusUpdate(String transaction);
 
   @ActivityMethod
-  Map<String, Object> verifyUser();
+  Map<String, Object> verifyUser(Map<String, Object> payload);
 }

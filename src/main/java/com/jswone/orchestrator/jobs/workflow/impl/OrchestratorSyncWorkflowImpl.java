@@ -34,7 +34,7 @@ public class OrchestratorSyncWorkflowImpl implements OrchestratorSyncWorkflow {
   @Override
   public void initiateSyncWorkflow(Map<String, Object> payload) {
     log.info("workflow invoked");
-    activity.verifyUser();
+    activity.verifyUser(payload);
     activity.transactionStatusUpdate((String) payload.get("transaction"));
   }
 }
